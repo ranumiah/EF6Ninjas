@@ -1,5 +1,6 @@
 ﻿using NinjaDomain.Classes.Enums;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NinjaDomain.Classes
 {
@@ -24,6 +25,7 @@ namespace NinjaDomain.Classes
         public int Id { get; set; }
         public string Name { get; set; }
         public EquipmentType Type { get; set; }
+        [Required]
         public Ninja Ninja { get; set; }
     }
 }
