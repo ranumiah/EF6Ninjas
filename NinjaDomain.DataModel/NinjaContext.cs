@@ -12,6 +12,12 @@ namespace NinjaDomain.DataModel
         // From ==>  Ninjas.Where(x => x.ServedInOniwaban == true)
         // To   ==>  Select * from ninjas where ServedInOniwaban == true
 
+        // Connection String Name in the App.config
+        public NinjaContext() : base("NinjaDbConnection")
+        {
+
+        }
+
         public DbSet<Ninja> Ninjas { get; set; }
         public DbSet<Clan> Clans { get; set; }
         public DbSet<NinjaEquipment> Equipment { get; set; }
