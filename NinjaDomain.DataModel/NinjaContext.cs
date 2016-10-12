@@ -15,7 +15,7 @@ namespace NinjaDomain.DataModel
         // Connection String Name in the App.config
         public NinjaContext() : base("NinjaDbConnection")
         {
-
+            AttachDbFilename.SetDataDirectory();
         }
 
         public DbSet<Ninja> Ninjas { get; set; }
