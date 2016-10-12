@@ -12,6 +12,7 @@ namespace NinjaDomain.Classes
         public Clan Clan { get; set; }
         public int ClanId { get; set; }
         public List<NinjaEquipment> EquipmentOwned { get; set; }
+        public System.DateTime DateOfBirth { get; set; }
     }
     public class Clan
     {
