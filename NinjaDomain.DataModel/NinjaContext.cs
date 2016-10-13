@@ -5,7 +5,7 @@ namespace NinjaDomain.DataModel
 {
     // DbContext corresponds to the database
     // DbSet corresponds to a table or view in the database
-    public class NinjaContext : DbContext // DbContext manages everything.
+    internal class NinjaContext : DbContext // DbContext manages everything.
     {
         // DbSet is Repository, it's responsible for maintaining the in-memory collection of entities.
         // Query is perform using DbSets i.e.
