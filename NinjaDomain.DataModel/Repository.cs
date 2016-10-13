@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using NinjaDomain.Classes;
+using System;
+using System.Data.Entity;
 
 namespace NinjaDomain.DataModel
 {
@@ -92,6 +94,51 @@ Closed connection at 13/10/2016 09:30:19 +01:00
             //DropCreateDatabaseIfModelChanges: This initializer drops an existing database and creates a new database, if your model classes(entity classes) have been changed.So you don't have to worry about maintaining your database schema, when your model classes change.
             //DropCreateDatabaseAlways: As the name suggests, this initializer drops an existing database every time you run the application, irrespective of whether your model classes have changed or not.This will be useful, when you want fresh database, every time you run the application, like while you are developing the application.
 
+            #endregion
+        }
+
+        public static void InsertClan()
+        {
+            DbIntialise();
+            var clan = new Clan
+            {
+                ClanName = "Vermont Ninjas"
+            };
+
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;  // Allow us to view what is happening with EF behind the scene
+                context.Clans.Add(clan);
+                context.SaveChanges();  // Execute everything that the Context is tracking in a Transaction.
+                                        // Therefore if there's a single failure then nothing will be changed.
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+             Opened connection at 13/10/2016 09:36:37 +01:00
+
+            Started transaction at 13/10/2016 09:36:37 +01:00
+
+            INSERT [dbo].[Clans]([ClanName])
+            VALUES (@0)
+            SELECT [Id]
+            FROM [dbo].[Clans]
+            WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+
+
+            -- @0: 'Vermont Ninjas' (Type = String, Size = -1)
+
+            -- Executing at 13/10/2016 09:36:37 +01:00
+
+            -- Completed in 2 ms with result: SqlDataReader
+
+
+
+            Committed transaction at 13/10/2016 09:36:37 +01:00
+
+            Closed connection at 13/10/2016 09:36:37 +01:00
+
+             */
             #endregion
         }
     }
