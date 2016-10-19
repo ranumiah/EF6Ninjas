@@ -338,5 +338,62 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void QueryAndUpdateNinja()
+        {
+            DbIntialise();
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                var ninja = context.Ninjas.FirstOrDefault(); // This runs one transaction
+                ninja.ServedInOniwaban = (!ninja.ServedInOniwaban); // This runs second transaction
+                context.SaveChanges();
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 11:31:09 +01:00
+
+            SELECT TOP (1)
+                [c].[Id] AS [Id],
+                [c].[Name] AS [Name],
+                [c].[ServedInOniwaban] AS [ServedInOniwaban],
+                [c].[ClanId] AS [ClanId],
+                [c].[DateOfBirth] AS [DateOfBirth]
+                FROM [dbo].[Ninjas] AS [c]
+
+
+            -- Executing at 19/10/2016 11:31:09 +01:00
+
+            -- Completed in 7 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 11:31:09 +01:00
+
+            Opened connection at 19/10/2016 11:31:09 +01:00
+
+            Started transaction at 19/10/2016 11:31:09 +01:00
+
+            UPDATE [dbo].[Ninjas]
+            SET [ServedInOniwaban] = @0
+            WHERE ([Id] = @1)
+
+            -- @0: 'True' (Type = Boolean)
+
+            -- @1: '1' (Type = Int32)
+
+            -- Executing at 19/10/2016 11:31:09 +01:00
+
+            -- Completed in 1 ms with result: 1
+
+
+
+            Committed transaction at 19/10/2016 11:31:09 +01:00
+
+            Closed connection at 19/10/2016 11:31:09 +01:00
+             */
+            #endregion
+        }
     }
 }

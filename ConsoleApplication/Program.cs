@@ -20,6 +20,10 @@ namespace ConsoleApplication
             Repository.SimpleNinjaQueries();
             Console.ReadLine();
 
+            Console.WriteLine("Run Query and Update");
+            Repository.QueryAndUpdateNinja();
+            Console.ReadLine();
+
             Console.WriteLine("Press Any Key to Exit");
         }
     }
