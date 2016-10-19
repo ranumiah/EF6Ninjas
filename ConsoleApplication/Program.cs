@@ -50,6 +50,10 @@ namespace ConsoleApplication
 
             Console.WriteLine("Run Insert Related Items");
             Repository.InsertNinjaWithEquipment();
+            Console.ReadLine();
+
+            Console.WriteLine("Run Query with Related Item using Eager Loading");
+            Repository.SimpleNinjaGraphQueryWithEagerLoading();
 
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();

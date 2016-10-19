@@ -828,5 +828,66 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void SimpleNinjaGraphQueryWithEagerLoading()
+        {
+            DbIntialise();
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                // This is Eager Loading, which brings back all the data from DB in one call
+                var ninja = context.Ninjas.Include(n => n.EquipmentOwned).FirstOrDefault(n => n.Name.StartsWith("Kacy"));
+                Console.WriteLine("Ninja Retrieved using Explicit Loading: " + ninja.Name);
+                Console.WriteLine("Number Of Equipment: " + ninja.EquipmentOwned.Count);
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 15:01:10 +01:00
+
+            SELECT
+                [Project1].[Id] AS [Id],
+                [Project1].[Name] AS [Name],
+                [Project1].[ServedInOniwaban] AS [ServedInOniwaban],
+                [Project1].[ClanId] AS [ClanId],
+                [Project1].[DateOfBirth] AS [DateOfBirth],
+                [Project1].[C1] AS [C1],
+                [Project1].[Id1] AS [Id1],
+                [Project1].[Name1] AS [Name1],
+                [Project1].[Type] AS [Type],
+                [Project1].[Ninja_Id] AS [Ninja_Id]
+                FROM ( SELECT
+                    [Limit1].[Id] AS [Id],
+                    [Limit1].[Name] AS [Name],
+                    [Limit1].[ServedInOniwaban] AS [ServedInOniwaban],
+                    [Limit1].[ClanId] AS [ClanId],
+                    [Limit1].[DateOfBirth] AS [DateOfBirth],
+                    [Extent2].[Id] AS [Id1],
+                    [Extent2].[Name] AS [Name1],
+                    [Extent2].[Type] AS [Type],
+                    [Extent2].[Ninja_Id] AS [Ninja_Id],
+                    CASE WHEN ([Extent2].[Id] IS NULL) THEN CAST(NULL AS int) ELSE 1 END AS [C1]
+                    FROM   (SELECT TOP (1) [Extent1].[Id] AS [Id], [Extent1].[Name] AS [Name], [Extent1].[ServedInOniwaban] AS [ServedInOniwaban], [Extent1].[ClanId] AS [ClanId], [Extent1].[DateOfBirth] AS [DateOfBirth]
+                        FROM [dbo].[Ninjas] AS [Extent1]
+                        WHERE [Extent1].[Name] LIKE N'Kacy%' ) AS [Limit1]
+                    LEFT OUTER JOIN [dbo].[NinjaEquipments] AS [Extent2] ON [Limit1].[Id] = [Extent2].[Ninja_Id]
+                )  AS [Project1]
+                ORDER BY [Project1].[Id] ASC, [Project1].[C1] ASC
+
+
+            -- Executing at 19/10/2016 15:01:10 +01:00
+
+            -- Completed in 0 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 15:01:10 +01:00
+
+            Ninja Retrieved using Explicit Loading: Kacy Catanzaro
+            Number Of Equipment: 2
+             */
+            #endregion
+        }
     }
 }
