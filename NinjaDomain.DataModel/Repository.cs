@@ -395,5 +395,80 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void QueryAndUpdateNinjaDisconnected()
+        {
+            DbIntialise();
+            Ninja ninja;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                ninja = context.Ninjas.FirstOrDefault();
+            }
+
+            ninja.ServedInOniwaban = (!ninja.ServedInOniwaban);
+
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                // EF will take note of this but will not know what has happend to it
+                context.Ninjas.Attach(ninja);
+                // Instruct EF that the state has change
+                context.Entry(ninja).State = EntityState.Modified;
+                // Thus it will do an update
+                context.SaveChanges();
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 11:41:26 +01:00
+
+            SELECT TOP (1)
+                [c].[Id] AS [Id],
+                [c].[Name] AS [Name],
+                [c].[ServedInOniwaban] AS [ServedInOniwaban],
+                [c].[ClanId] AS [ClanId],
+                [c].[DateOfBirth] AS [DateOfBirth]
+                FROM [dbo].[Ninjas] AS [c]
+
+
+            -- Executing at 19/10/2016 11:41:26 +01:00
+
+            -- Completed in 4 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 11:41:26 +01:00
+
+            Opened connection at 19/10/2016 11:41:26 +01:00
+
+            Started transaction at 19/10/2016 11:41:26 +01:00
+
+            UPDATE [dbo].[Ninjas]
+            SET [Name] = @0, [ServedInOniwaban] = @1, [ClanId] = @2, [DateOfBirth] = @3
+            WHERE ([Id] = @4)
+
+            -- @0: 'Raphael' (Type = String, Size = -1)
+
+            -- @1: 'False' (Type = Boolean)
+
+            -- @2: '1' (Type = Int32)
+
+            -- @3: '29/02/2000 00:00:00' (Type = DateTime2)
+
+            -- @4: '1' (Type = Int32)
+
+            -- Executing at 19/10/2016 11:41:26 +01:00
+
+            -- Completed in 3 ms with result: 1
+
+
+
+            Committed transaction at 19/10/2016 11:41:26 +01:00
+
+            Closed connection at 19/10/2016 11:41:26 +01:00
+             */
+            #endregion
+        }
     }
 }

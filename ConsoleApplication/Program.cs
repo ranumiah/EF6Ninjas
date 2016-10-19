@@ -24,7 +24,11 @@ namespace ConsoleApplication
             Repository.QueryAndUpdateNinja();
             Console.ReadLine();
 
+            Console.WriteLine("Run Query and Update In Disconnect Mode");
+            Repository.QueryAndUpdateNinjaDisconnected();
+
             Console.WriteLine("Press Any Key to Exit");
+            Console.ReadLine();
         }
     }
 }
