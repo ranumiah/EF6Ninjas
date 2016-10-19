@@ -16,6 +16,10 @@ namespace ConsoleApplication
             Repository.InsertMultipleNinjas();
             Console.ReadLine();
 
+            Console.WriteLine("Run Simple Query");
+            Repository.SimpleNinjaQueries();
+            Console.ReadLine();
+
             Console.WriteLine("Press Any Key to Exit");
         }
     }

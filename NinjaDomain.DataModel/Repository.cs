@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace NinjaDomain.DataModel
 {
@@ -100,7 +101,7 @@ namespace NinjaDomain.DataModel
 
         public static void InsertClan()
         {
-            DbIntialise();
+            Database.SetInitializer(new DropCreateDatabaseAlways<NinjaContext>());
             var clan = new Clan
             {
                 ClanName = "Vermont Ninjas"
@@ -274,6 +275,66 @@ namespace NinjaDomain.DataModel
             Committed transaction at 18/10/2016 13:48:09 +01:00
 
             Closed connection at 18/10/2016 13:48:09 +01:00
+             */
+            #endregion
+        }
+
+        public static void SimpleNinjaQueries()
+        {
+            DbIntialise();
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                // Either LINQ methods or LINQ Query Syntax can be used for Expressing Queries.
+                var ninjas = context.Ninjas
+                    .Where(n => n.DateOfBirth >= new DateTime(2000, 2, 29))
+                    .OrderBy(n => n.Name)
+                    .Skip(1).Take(1);
+
+                // query is an expression that has yet to hit the database
+                // var query = context.Ninjas; ***Disconnected Query***
+
+                // ToList() is a LINQ Executio Method, which make a query execute against the database
+                // var someninjas = query.ToList(); ***Connected Query***
+
+                // Enumerate the query variable or query expression will be executed against the database
+                // Avoid doing lots of work in an enumeration that is alos responsible for query execution
+                // because it will open the database connection at the start and will keep it open till all the results have come back.
+                //foreach (var ninja in context.Ninjas)
+                //{
+                //    Console.WriteLine(ninja.Name);
+                //}
+
+                foreach (var ninja in ninjas)
+                {
+                    Console.WriteLine(ninja.Name);
+                }
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 18/10/2016 17:47:12 +01:00
+
+            SELECT
+                [Extent1].[Id] AS [Id],
+                [Extent1].[Name] AS [Name],
+                [Extent1].[ServedInOniwaban] AS [ServedInOniwaban],
+                [Extent1].[ClanId] AS [ClanId],
+                [Extent1].[DateOfBirth] AS [DateOfBirth]
+                FROM [dbo].[Ninjas] AS [Extent1]
+                WHERE [Extent1].[DateOfBirth] >= convert(datetime2, '2000-02-29 00:00:00.0000000', 121)
+                ORDER BY [Extent1].[Name] ASC
+                OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY
+
+
+            -- Executing at 18/10/2016 17:47:12 +01:00
+
+            -- Completed in 3 ms with result: SqlDataReader
+
+
+
+            Leonardo
+            Closed connection at 18/10/2016 17:47:12 +01:00
              */
             #endregion
         }
