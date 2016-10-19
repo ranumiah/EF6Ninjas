@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttachDbFilename.cs" />
+    <Compile Include="DataHelpers.cs" />
     <Compile Include="Migrations\201610121329508_Initial.cs" />
     <Compile Include="Migrations\201610121329508_Initial.Designer.cs">
       <DependentUpon>201610121329508_Initial.cs</DependentUpon>
