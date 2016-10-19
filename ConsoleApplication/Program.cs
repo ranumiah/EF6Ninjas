@@ -34,6 +34,10 @@ namespace ConsoleApplication
 
             Console.WriteLine("Run Retrieve Data With Stored Procedure");
             Repository.RetrieveDataWithStoredProc();
+            Console.ReadLine();
+
+            Console.WriteLine("Run Delete");
+            Repository.DeleteNinja();
 
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();

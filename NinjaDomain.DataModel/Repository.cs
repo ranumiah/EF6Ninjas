@@ -559,5 +559,68 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void DeleteNinja()
+        {
+            DbIntialise();
+            Ninja ninja;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                ninja = context.Ninjas.FirstOrDefault();
+                //context.Ninjas.Remove(ninja);
+                //context.SaveChanges();
+            }
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                //context.Ninjas.Attach(ninja);
+                //context.Ninjas.Remove(ninja);
+                context.Entry(ninja).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 14:08:14 +01:00
+
+            SELECT TOP (1)
+                [c].[Id] AS [Id],
+                [c].[Name] AS [Name],
+                [c].[ServedInOniwaban] AS [ServedInOniwaban],
+                [c].[ClanId] AS [ClanId],
+                [c].[DateOfBirth] AS [DateOfBirth]
+                FROM [dbo].[Ninjas] AS [c]
+
+
+            -- Executing at 19/10/2016 14:08:14 +01:00
+
+            -- Completed in 0 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 14:08:14 +01:00
+
+            Opened connection at 19/10/2016 14:08:14 +01:00
+
+            Started transaction at 19/10/2016 14:08:14 +01:00
+
+            DELETE [dbo].[Ninjas]
+            WHERE ([Id] = @0)
+
+
+            -- @0: '2' (Type = Int32)
+
+            -- Executing at 19/10/2016 14:08:14 +01:00
+
+            -- Completed in 0 ms with result: 1
+
+
+
+            Committed transaction at 19/10/2016 14:08:14 +01:00
+
+            Closed connection at 19/10/2016 14:08:14 +01:00
+             */
+            #endregion
+        }
     }
 }
