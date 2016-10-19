@@ -38,6 +38,10 @@ namespace ConsoleApplication
 
             Console.WriteLine("Run Delete");
             Repository.DeleteNinja();
+            Console.ReadLine();
+
+            Console.WriteLine("Run Delete With Key Value");
+            Repository.DeleteNinjaWithKeyValue();
 
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();

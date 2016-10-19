@@ -622,5 +622,65 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void DeleteNinjaWithKeyValue()
+        {
+            DbIntialise();
+            var keyval = 1;
+            Ninja ninja;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                ninja = context.Ninjas.Find(keyval); // DB round trip #1
+                context.Ninjas.Remove(ninja);
+                context.SaveChanges(); // DB round trip #2
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 14:18:11 +01:00
+
+            SELECT TOP (2)
+                [Extent1].[Id] AS [Id],
+                [Extent1].[Name] AS [Name],
+                [Extent1].[ServedInOniwaban] AS [ServedInOniwaban],
+                [Extent1].[ClanId] AS [ClanId],
+                [Extent1].[DateOfBirth] AS [DateOfBirth]
+                FROM [dbo].[Ninjas] AS [Extent1]
+                WHERE [Extent1].[Id] = @p0
+
+
+            -- p0: '1' (Type = Int32)
+
+            -- Executing at 19/10/2016 14:18:11 +01:00
+
+            -- Completed in 7 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 14:18:11 +01:00
+
+            Opened connection at 19/10/2016 14:18:11 +01:00
+
+            Started transaction at 19/10/2016 14:18:11 +01:00
+
+            DELETE [dbo].[Ninjas]
+            WHERE ([Id] = @0)
+
+
+            -- @0: '1' (Type = Int32)
+
+            -- Executing at 19/10/2016 14:18:11 +01:00
+
+            -- Completed in 2 ms with result: 1
+
+
+
+            Committed transaction at 19/10/2016 14:18:11 +01:00
+
+            Closed connection at 19/10/2016 14:18:11 +01:00
+             */
+            #endregion
+        }
     }
 }
