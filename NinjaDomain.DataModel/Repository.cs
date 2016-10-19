@@ -1,4 +1,5 @@
 ﻿using NinjaDomain.Classes;
+using NinjaDomain.Classes.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -719,6 +720,111 @@ namespace NinjaDomain.DataModel
             Committed transaction at 19/10/2016 14:28:18 +01:00
 
             Closed connection at 19/10/2016 14:28:18 +01:00
+             */
+            #endregion
+        }
+
+        public static void InsertNinjaWithEquipment()
+        {
+            DbIntialise();
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninja = new Ninja
+                {
+                    Name = "Kacy Catanzaro",
+                    ServedInOniwaban = false,
+                    DateOfBirth = new DateTime(1990, 1, 14),
+                    ClanId = 1
+                };
+                var muscles = new NinjaEquipment
+                {
+                    Name = "Muscles",
+                    Type = EquipmentType.Tool,
+
+                };
+                var spunk = new NinjaEquipment
+                {
+                    Name = "Spunk",
+                    Type = EquipmentType.Weapon
+                };
+
+                ninja.EquipmentOwned.Add(muscles);
+                ninja.EquipmentOwned.Add(spunk);
+                context.Ninjas.Add(ninja);
+                // three inserts in one transaction
+                context.SaveChanges();
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 14:36:22 +01:00
+
+            Started transaction at 19/10/2016 14:36:22 +01:00
+
+            INSERT [dbo].[Ninjas]([Name], [ServedInOniwaban], [ClanId], [DateOfBirth])
+            VALUES (@0, @1, @2, @3)
+            SELECT [Id]
+            FROM [dbo].[Ninjas]
+            WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+
+
+            -- @0: 'Kacy Catanzaro' (Type = String, Size = -1)
+
+            -- @1: 'False' (Type = Boolean)
+
+            -- @2: '1' (Type = Int32)
+
+            -- @3: '14/01/1990 00:00:00' (Type = DateTime2)
+
+            -- Executing at 19/10/2016 14:36:22 +01:00
+
+            -- Completed in 3 ms with result: SqlDataReader
+
+
+
+            INSERT [dbo].[NinjaEquipments]([Name], [Type], [Ninja_Id])
+            VALUES (@0, @1, @2)
+            SELECT [Id]
+            FROM [dbo].[NinjaEquipments]
+            WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+
+
+            -- @0: 'Muscles' (Type = String, Size = -1)
+
+            -- @1: '1' (Type = Int32)
+
+            -- @2: '5' (Type = Int32)
+
+            -- Executing at 19/10/2016 14:36:22 +01:00
+
+            -- Completed in 1 ms with result: SqlDataReader
+
+
+
+            INSERT [dbo].[NinjaEquipments]([Name], [Type], [Ninja_Id])
+            VALUES (@0, @1, @2)
+            SELECT [Id]
+            FROM [dbo].[NinjaEquipments]
+            WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+
+
+            -- @0: 'Spunk' (Type = String, Size = -1)
+
+            -- @1: '2' (Type = Int32)
+
+            -- @2: '5' (Type = Int32)
+
+            -- Executing at 19/10/2016 14:36:22 +01:00
+
+            -- Completed in 0 ms with result: SqlDataReader
+
+
+
+            Committed transaction at 19/10/2016 14:36:22 +01:00
+
+            Closed connection at 19/10/2016 14:36:22 +01:00
              */
             #endregion
         }
