@@ -956,5 +956,68 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void SimpleNinjaGraphQueryWithLazyoading()
+        {
+            DbIntialise();
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                // This is Explicit Loading, which bring back only ninja data
+                var ninja = context.Ninjas.FirstOrDefault(n => n.Name.StartsWith("Kacy"));
+                Console.WriteLine("Ninja Retrieved using Lazy Loading: " + ninja.Name);
+                // Becuase EquipmentOwned is marked as Virtual EF applies Lazy Loading Logic
+                Console.WriteLine("Number Of Equipment: " + ninja.EquipmentOwned.Count);
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 15:09:37 +01:00
+
+            SELECT TOP (1)
+                [Extent1].[Id] AS [Id],
+                [Extent1].[Name] AS [Name],
+                [Extent1].[ServedInOniwaban] AS [ServedInOniwaban],
+                [Extent1].[ClanId] AS [ClanId],
+                [Extent1].[DateOfBirth] AS [DateOfBirth]
+                FROM [dbo].[Ninjas] AS [Extent1]
+                WHERE [Extent1].[Name] LIKE N'Kacy%'
+
+
+            -- Executing at 19/10/2016 15:09:37 +01:00
+
+            -- Completed in 0 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 15:09:37 +01:00
+
+            Ninja Retrieved using Lazy Loading: Kacy Catanzaro
+            Opened connection at 19/10/2016 15:09:37 +01:00
+
+            SELECT
+                [Extent1].[Id] AS [Id],
+                [Extent1].[Name] AS [Name],
+                [Extent1].[Type] AS [Type],
+                [Extent1].[Ninja_Id] AS [Ninja_Id]
+                FROM [dbo].[NinjaEquipments] AS [Extent1]
+                WHERE [Extent1].[Ninja_Id] = @EntityKeyValue1
+
+
+            -- EntityKeyValue1: '5' (Type = Int32, IsNullable = false)
+
+            -- Executing at 19/10/2016 15:09:37 +01:00
+
+            -- Completed in 0 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 15:09:37 +01:00
+
+            Number Of Equipment: 2
+             */
+            #endregion
+        }
     }
 }

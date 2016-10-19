@@ -58,6 +58,10 @@ namespace ConsoleApplication
 
             Console.WriteLine("Run Query with Related Item using Explict Loading");
             Repository.SimpleNinjaGraphQueryWithExplicitLoading();
+            Console.ReadLine();
+
+            Console.WriteLine("Run Query with Related Item using Lazy Loading");
+            Repository.SimpleNinjaGraphQueryWithLazyoading();
 
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();
