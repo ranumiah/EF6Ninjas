@@ -4,6 +4,5 @@
     {
         Shinobi = 1,
         Kunoichi = 2
-
     }
 }
