@@ -2,15 +2,15 @@ namespace NinjaDomain.DataModel.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<NinjaDomain.DataModel.NinjaContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<NinjaContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         // This will only add data if it already does NOT exist
-        protected override void Seed(NinjaDomain.DataModel.NinjaContext context)
+        protected override void Seed(NinjaContext context)
         {
             //  This method will be called after migrating to the latest version.
 

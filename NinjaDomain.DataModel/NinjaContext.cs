@@ -1,5 +1,6 @@
 ﻿using NinjaDomain.Classes;
 using NinjaDomain.Classes.Interfaces;
+using NinjaDomain.DataModel.Migrations;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace NinjaDomain.DataModel
         // Allows the change of default model binding conventions
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<NinjaContext, Configuration>());
+
             // This will prevent EF to look for IsDirty in Model, Queries, and Updates
             modelBuilder.Types().Configure(c => c.Ignore("IsDirty"));
             base.OnModelCreating(modelBuilder);
