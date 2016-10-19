@@ -25,7 +25,6 @@ namespace NinjaDomain.DataModel
                 var amClan = context.Clans.Add(new Clan { ClanName = "American Ninja Warriors" });
                 var footClan = context.Clans.Add(new Clan { ClanName = "Foot Clan" });
 
-                context.Clans.Add(new Clan { ClanName = "Vermont Clan" });
                 var j = new Ninja
                 {
                     Name = "JulieSan",
