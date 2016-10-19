@@ -7,7 +7,7 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
-            Repository.ResetDbWithContent();
+            DbHelper.NewDbWithSeed();
             //InsertExamples();
             //QueryAndUpdateExamples();
             //DeleteExamples();
