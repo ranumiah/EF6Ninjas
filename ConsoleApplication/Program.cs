@@ -54,6 +54,10 @@ namespace ConsoleApplication
 
             Console.WriteLine("Run Query with Related Item using Eager Loading");
             Repository.SimpleNinjaGraphQueryWithEagerLoading();
+            Console.ReadLine();
+
+            Console.WriteLine("Run Query with Related Item using Explict Loading");
+            Repository.SimpleNinjaGraphQueryWithExplicitLoading();
 
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();
