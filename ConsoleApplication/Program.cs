@@ -62,6 +62,10 @@ namespace ConsoleApplication
 
             Console.WriteLine("Run Query with Related Item using Lazy Loading");
             Repository.SimpleNinjaGraphQueryWithLazyoading();
+            Console.ReadLine();
+
+            Console.WriteLine("Run Query with Related Item using Projection");
+            Repository.SimpleProjectionQuery();
 
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();

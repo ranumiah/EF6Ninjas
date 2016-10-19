@@ -1019,5 +1019,54 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void SimpleProjectionQuery()
+        {
+            DbIntialise();
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                // This will return an anoymous type with only the selected properties and not a Ninja type
+                context.Ninjas.Select(n => new { n.Name, n.DateOfBirth, n.EquipmentOwned }).ToList();
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 15:20:23 +01:00
+
+            SELECT
+                [Project1].[Id] AS [Id],
+                [Project1].[Name] AS [Name],
+                [Project1].[DateOfBirth] AS [DateOfBirth],
+                [Project1].[C1] AS [C1],
+                [Project1].[Id1] AS [Id1],
+                [Project1].[Name1] AS [Name1],
+                [Project1].[Type] AS [Type],
+                [Project1].[Ninja_Id] AS [Ninja_Id]
+                FROM ( SELECT
+                    [Extent1].[Id] AS [Id],
+                    [Extent1].[Name] AS [Name],
+                    [Extent1].[DateOfBirth] AS [DateOfBirth],
+                    [Extent2].[Id] AS [Id1],
+                    [Extent2].[Name] AS [Name1],
+                    [Extent2].[Type] AS [Type],
+                    [Extent2].[Ninja_Id] AS [Ninja_Id],
+                    CASE WHEN ([Extent2].[Id] IS NULL) THEN CAST(NULL AS int) ELSE 1 END AS [C1]
+                    FROM  [dbo].[Ninjas] AS [Extent1]
+                    LEFT OUTER JOIN [dbo].[NinjaEquipments] AS [Extent2] ON [Extent1].[Id] = [Extent2].[Ninja_Id]
+                )  AS [Project1]
+                ORDER BY [Project1].[Id] ASC, [Project1].[C1] ASC
+
+
+            -- Executing at 19/10/2016 15:20:23 +01:00
+
+            -- Completed in 0 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 15:20:23 +01:00
+             */
+            #endregion
+        }
     }
 }
