@@ -470,5 +470,52 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void RetrieveDataWithFind()
+        {
+            DbIntialise();
+            var keyval = 4;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                // First check if it has it in memory otherewise it will hit database to find it
+                var ninja = context.Ninjas.Find(keyval); // If there's more than one result this will fail and return null
+                Console.WriteLine("After Find#1:" + ninja.Name);
+
+                // Since it has already found it in memory. EF will not goto the database
+                var someNinja = context.Ninjas.Find(keyval);
+                Console.WriteLine("After Find#2:" + someNinja.Name);
+                ninja = null;
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 11:45:35 +01:00
+
+            SELECT TOP (2)
+                [Extent1].[Id] AS [Id],
+                [Extent1].[Name] AS [Name],
+                [Extent1].[ServedInOniwaban] AS [ServedInOniwaban],
+                [Extent1].[ClanId] AS [ClanId],
+                [Extent1].[DateOfBirth] AS [DateOfBirth]
+                FROM [dbo].[Ninjas] AS [Extent1]
+                WHERE [Extent1].[Id] = @p0
+
+
+            -- p0: '4' (Type = Int32)
+
+            -- Executing at 19/10/2016 11:45:35 +01:00
+
+            -- Completed in 7 ms with result: SqlDataReader
+
+
+
+            Closed connection at 19/10/2016 11:45:35 +01:00
+
+            After Find#1:Donatello
+            After Find#2:Donatello
+             */
+            #endregion
+        }
     }
 }

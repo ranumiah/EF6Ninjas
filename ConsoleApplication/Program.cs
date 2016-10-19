@@ -26,6 +26,11 @@ namespace ConsoleApplication
 
             Console.WriteLine("Run Query and Update In Disconnect Mode");
             Repository.QueryAndUpdateNinjaDisconnected();
+            Console.ReadLine();
+
+            Console.WriteLine("Run Retrieve Data With Find");
+            Repository.RetrieveDataWithFind();
+            Console.ReadLine();
 
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();
