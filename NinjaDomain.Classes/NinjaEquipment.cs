@@ -1,7 +1,7 @@
-﻿using NinjaDomain.Classes.Interfaces;
+﻿using NinjaDomain.Classes.Enums;
+using NinjaDomain.Classes.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
-using NinjaDomain.Classes.Enums;
 
 namespace NinjaDomain.Classes
 {
@@ -12,7 +12,6 @@ namespace NinjaDomain.Classes
         public EquipmentType Type { get; set; }
         [Required]
         public Ninja Ninja { get; set; }
-
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public bool IsDirty { get; set; }

@@ -21,6 +21,5 @@ namespace NinjaDomain.Classes
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public bool IsDirty { get; set; }
-
     }
 }
