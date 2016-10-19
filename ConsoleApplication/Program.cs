@@ -42,6 +42,10 @@ namespace ConsoleApplication
 
             Console.WriteLine("Run Delete With Key Value");
             Repository.DeleteNinjaWithKeyValue();
+            Console.ReadLine();
+
+            Console.WriteLine("Run Delete With Stored Procedure");
+            Repository.DeleteNinjaViaStoredProcedure();
 
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();

@@ -682,5 +682,45 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void DeleteNinjaViaStoredProcedure()
+        {
+            DbIntialise();
+
+            //CREATE PROCEDURE DeleteNinjaViaId
+            //@ID int
+            //AS
+            //DELETE FROM Ninjas WHERE Id = @ID;
+
+            var keyval = 3;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                context.Database.ExecuteSqlCommand("exec DeleteNinjaViaId {0}", keyval);
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 14:28:18 +01:00
+
+            Started transaction at 19/10/2016 14:28:18 +01:00
+
+            exec DeleteNinjaViaId @p0
+
+
+            -- p0: '3' (Type = Int32, IsNullable = false)
+
+            -- Executing at 19/10/2016 14:28:18 +01:00
+
+            -- Completed in 3 ms with result: 1
+
+
+
+            Committed transaction at 19/10/2016 14:28:18 +01:00
+
+            Closed connection at 19/10/2016 14:28:18 +01:00
+             */
+            #endregion
+        }
     }
 }
