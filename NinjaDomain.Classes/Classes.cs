@@ -6,6 +6,11 @@ namespace NinjaDomain.Classes
 {
     public class Ninja
     {
+        public Ninja()
+        {
+            EquipmentOwned = new List<NinjaEquipment>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public bool ServedInOniwaban { get; set; }
