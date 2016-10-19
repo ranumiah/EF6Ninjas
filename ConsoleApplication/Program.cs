@@ -32,6 +32,9 @@ namespace ConsoleApplication
             Repository.RetrieveDataWithFind();
             Console.ReadLine();
 
+            Console.WriteLine("Run Retrieve Data With Stored Procedure");
+            Repository.RetrieveDataWithStoredProc();
+
             Console.WriteLine("Press Any Key to Exit");
             Console.ReadLine();
         }

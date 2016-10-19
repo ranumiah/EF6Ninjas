@@ -517,5 +517,47 @@ namespace NinjaDomain.DataModel
              */
             #endregion
         }
+
+        public static void RetrieveDataWithStoredProc()
+        {
+            DbIntialise();
+
+            //CREATE PROCEDURE GetOldNinjas AS
+            //SELECT Id, Name, ServedInOniwaban, ClanId, DateOfBirth
+            //FROM Ninjas
+            //WHERE DateOfBirth = '2/29/2000 00:00:00';
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                // the result of SP must match the Ninjas properties
+                var ninjas = context.Ninjas.SqlQuery("exec GetOldNinjas");
+                // Below loop is forcing the query to be executed in DB
+                foreach (var ninja in ninjas)
+                {
+                    Console.WriteLine(ninja.Name);
+                }
+            }
+
+            #region SQL Statement EF EXEC
+            /*
+            Opened connection at 19/10/2016 12:04:58 +01:00
+
+            exec GetOldNinjas
+
+
+            -- Executing at 19/10/2016 12:04:58 +01:00
+
+            -- Completed in 0 ms with result: SqlDataReader
+
+
+
+            Raphael
+            Leonardo
+            Michelangelo
+            Donatello
+            Closed connection at 19/10/2016 12:04:58 +01:00
+             */
+            #endregion
+        }
     }
 }
