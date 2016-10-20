@@ -12,6 +12,7 @@ namespace NinjaDomain.Classes
         public EquipmentType Type { get; set; }
         [Required]
         public Ninja Ninja { get; set; }
+
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public bool IsDirty { get; set; }
