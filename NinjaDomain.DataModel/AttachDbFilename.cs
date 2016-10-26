@@ -9,7 +9,11 @@ namespace NinjaDomain.DataModel
         {
             // Set the |DataDirectory| path used in connection strings to point to the correct directory for console app and migrations
             var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            const string relative = @"..\..\..\App_Data";
+            var relative = @"..\App_Data";
+
+            if (string.IsNullOrEmpty(AppDomain.CurrentDomain.RelativeSearchPath))
+                relative = @"..\..\..\App_Data";
+
             var absolute = Path.GetFullPath(Path.Combine(baseDirectory, relative));
             AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
         }
