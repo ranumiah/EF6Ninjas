@@ -75,8 +75,6 @@ namespace WpfApplication
             SortNinjaList();
         }
 
-
-
         private bool ShouldRefresh
         {
             get
@@ -135,7 +133,6 @@ namespace WpfApplication
             }
         }
 
-
         private void btnNewNinja_Click(object sender, RoutedEventArgs e)
         {
             if (ShouldRefresh)
@@ -158,7 +155,6 @@ namespace WpfApplication
                     break;
             }
         }
-
 
         private void SetNinjaDirty()
         {
