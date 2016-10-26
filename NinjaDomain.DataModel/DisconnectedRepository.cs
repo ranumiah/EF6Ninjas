@@ -32,7 +32,8 @@ namespace NinjaDomain.DataModel
         {
             using (var context = new NinjaContext())
             {
-                //return context.Ninjas.Include(n => n.Clan).ToList();
+                // AsNoTracking ==> EF doesn't bother keeping the StateEntry for each entity in the DbContext.
+                // Another word major performance boast as there's not need to instantiate objects that won't be used.
                 return context.Ninjas.AsNoTracking().Include(n => n.Clan).ToList();
             }
         }
@@ -69,6 +70,7 @@ namespace NinjaDomain.DataModel
         {
             using (var context = new NinjaContext())
             {
+                // There is prop no real performance boast here but it make this line of code very easy to read
                 return context.Ninjas.Find(id);
                 // return context.Ninjas.AsNoTracking().SingleOrDefault(n => n.Id == id);
             }
