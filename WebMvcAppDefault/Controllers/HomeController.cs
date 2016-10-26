@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace WebMvcAppDefault.Controllers
 {
@@ -15,7 +11,7 @@ namespace WebMvcAppDefault.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Pluralsight.com Getting Started with Entity Framework 6 by Julie Lerman.";
 
             return View();
         }
